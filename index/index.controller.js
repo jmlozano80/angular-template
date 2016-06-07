@@ -105,7 +105,7 @@
                 .then(function (response) {
 
                     alert('resendActivationMail '+ response);
-                    if (response.success) {
+                    if (response.email) {
                         FlashService.Success(response.message, true);
                         $scope.dataLoading = false;
                         $location.path('/');

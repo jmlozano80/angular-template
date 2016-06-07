@@ -30,12 +30,13 @@
         })();
 
         $scope.login=function() {
+            alert("login12345");
             console.info("login "+ $scope.email +' '+$scope.password );
             vm.dataLoading = true;
             AuthenticationService.Login($scope.email, $scope.password, function (response) {
                 alert("login callback");
                 if (response.success) {
-                    alert("LoginController calling setcredentials with params: "+$scope.username+" "+$scope.password);
+                    alert("LoginController calling setcredentials with params: "+$scope.email+" "+$scope.password);
                     AuthenticationService.SetCredentials(response.email, $scope.password);
                     $location.path('/home');
                 } else {
