@@ -8,30 +8,41 @@
     <link href="app-content/app.css" rel="stylesheet" />
     <link href="app-content/bootstrap-social.css" rel="stylesheet" />
     <!--<link href="app-content/app.css" rel="stylesheet" />-->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 
 </head>
 <body>
 
-<div class="jumbotron">
-    <div class="container">
-        <div class="col-sm-8 col-sm-offset-2">
-            <div ng-view></div>
+
+    <!--<div class="container-fluid" style="background: red">-->
+
+    <div ui-view="main"></div>
+
+    <!--</div>-->
+
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted"><a href="https://github.com/jmlozano80">http://github.com/jmlozano80</a></p>
         </div>
-    </div>
-</div>
-<div class="credits text-center">
+    </footer>
+<!--<div class="credits text-center">
     <p>
         <a href="http://jasonwatmore.com/post/2015/03/10/AngularJS-User-Registration-and-Login-Example.aspx">AngularJS User Registration and Login Example</a>
     </p>
     <p>
         <a href="http://jasonwatmore.com">JasonWatmore.com</a>
     </p>
-</div>
+</div>-->
 
 <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-animate.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-route.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-cookies.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
@@ -40,7 +51,8 @@
 <script src="//rawgit.com/IamAdamJowett/angular-click-outside/master/clickoutside.directive.js"></script>
 
 
-
+    <!-- UI-Router -->
+    <script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
 
 <!--<script src="//code.angularjs.org/1.2.20/angular.js"></script>-->
 <!--<script src="//code.angularjs.org/1.2.20/angular-route.js"></script>-->
@@ -59,9 +71,20 @@
 
 <!-- Fake user service for demo that uses local storage -->
 <!--<script src="app-services/user.service.local-storage.js"></script>-->
-<script src="home/home.controller.js"></script>
-<script src="index/index.controller.js"></script>
-<script src="login/login.controller.js"></script>
-<script src="register/register.controller.js"></script>
+    <script src="app-views/index/index.controller.js"></script>
+    <script src="app-views/home/home.controller.js"></script>
+    <script src="app-views/home-container/home.container.controller.js"></script>
+    <script src="app-views/page1/page1-1/page1.1.controller.js"></script>
+    <script src="app-views/page1/page1-2/page1.2.controller.js"></script>
+    <script src="app-views/page1/page1-3/page1.3.controller.js"></script>
+    <script src="app-views/page2/page2.controller.js"></script>
+    <script src="app-views/page3/page3.controller.js"></script>
+    <script src="app-views/admin/admin1/admin1.controller.js"></script>
+    <script src="app-views/admin/admin2/admin2.controller.js"></script>
+    <script src="app-views/admin/admin3/admin3.controller.js"></script>
+
+
+<!--<script src="login/login.controller.js"></script>-->
+<!--<script src="register/register.controller.js"></script>-->
 </body>
 </html>

@@ -44,10 +44,11 @@
                .success(function (response) {
                    callback(response);
                })
-                .error(function(error, status) {
-                    alert("authservice error "+ status);
-                    alert("authservice error "+ error);
-                    callback(status);
+                .error(function(data, status,headers) {
+                    alert("authservice status "+ status);
+                   // alert("authservice data "+ data.headers('error'));
+                    alert("authservice headers "+ headers('error'));
+                    callback(status,headers);
                 });
 
 

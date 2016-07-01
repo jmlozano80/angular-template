@@ -14,7 +14,7 @@
 
         service.GetAll = GetAll;
         service.GetById = GetById;
-        service.GetByUsername = GetByUsername;
+        service.GetUsernameByEmail = GetUsernameByEmail;
         service.Create = Create;
         service.RegistrationConfirm = RegistrationConfirm;
         service.ResendActivationMail = ResendActivationMail;
@@ -23,8 +23,14 @@
         service.ResetPassword = ResetPassword;
         service.Update = Update;
         service.Delete = Delete;
-
+        service.IsUserAdmin = IsUserAdmin;
         return service;
+
+
+
+        function IsUserAdmin() {
+            return $http.get('http://localhost:8080/api/isadmin').then(handleSuccess, handleError);
+        }
 
         function GetAll() {
             return $http.get('/api/users').then(handleSuccess, handleError('Error getting all users'));
@@ -34,9 +40,8 @@
             return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
-        function GetByUsername(username) {
-            alert('GetByUsername '+ username);
-            return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
+        function GetUsernameByEmail() {
+           return $http.get('http://localhost:8080/api/username').then(handleSuccess, handleError);
         }
 
         function ResendActivationMail(email) {
@@ -50,13 +55,13 @@
         }
         function GetByResetPassword(token,email) {
             //alert('GetByResetPassword '+ token+' '+ email);
-            return $http.get('http://localhost:8080/resetPassword/?token='+token+'&email='+email).then(handleSuccess, handleErrorGetResetPassword);
+            return $http.get('http://localhost:8080/resetPassword/?token='+token+'&email='+email).then(handleSuccess, handleError);
         }
 
         function ResetPassword(resetPasswordForm) {
             
             alert("service "+ JSON.stringify(resetPasswordForm));
-            return $http.post('http://localhost:8080/resetPassword', resetPasswordForm).then(handleSuccess, handleErrorGetResetPassword);
+            return $http.post('http://localhost:8080/resetPassword', resetPasswordForm).then(handleSuccess, handleError);
         }
 
         function Create(user) {
@@ -67,7 +72,7 @@
         
         function RegistrationConfirm(token) {
 
-            return $http.get('http://localhost:8080/registrationConfirm?token=' + token.token,null).then(handleSuccessConfirmEmail, handleErrorConfirmEmail);
+            return $http.get('http://localhost:8080/registrationConfirm?token=' + token.token,null).then(handleSuccess, handleError);
         }
 
         function Update(user) {
@@ -82,36 +87,18 @@
 
         function handleSuccess(res) {
 
-            alert('Handle Success '+JSON.stringify(res));
             return res;
         }
 
         function handleError(res) {
 
-
-            alert("handleError "+res)
             return res;
 
         }
 
 
-        function handleErrorGetResetPassword(res) {
-            
 
-                    alert("handleErrorGetResetPassword"+res)
-                return res;
-            
-        }
-        function handleSuccessConfirmEmail(res) {
-            return res;
-        }
 
-        function handleErrorConfirmEmail(res) {
-
-       
-            return res
-
-        }
     }
 
 })();
