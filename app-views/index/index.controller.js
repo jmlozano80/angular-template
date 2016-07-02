@@ -17,20 +17,16 @@
     function IndexController($scope,$uibModal,AuthenticationService,UserService, $rootScope,$http,$location,$cookieStore) {
         var vm = this;
 
-        alert("indexctrl");
         $scope.emailJson={
             email:$scope.email
         };
-
-
-
         $scope.password;
         $scope.username;
 
 
+
         (function initController() {
-            // reset login status
-           // AuthenticationService.ClearCredentials();
+
         })();
 
         $scope.openModal=function(modalId){
@@ -41,23 +37,18 @@
         }
 
 
-
-
-
         $scope.close=function(){
             $scope.modalInstance.dismiss();//$scope.modalInstance.close() also works I think
             $location.path('/');
         };
 
 
-
         $scope.resendActivationMail=function() {
-            console.info("resendActivationMail $scope.emailJson"+$scope.emailJson.email);
+
             $scope.dataLoading = true;
             UserService.ResendActivationMail($scope.emailJson)
                 .then(function (response) {
 
-                    alert('resendActivationMail '+ response);
                     if (response.email) {
                         FlashService.Success(response.message, true);
                         $scope.dataLoading = false;
@@ -69,48 +60,25 @@
                     }
                 });
         }
-
-
-        /*end login functions*/
-
-
-
-        $scope.close=function(){
-            $scope.modalInstance.dismiss();//$scope.modalInstance.close() also works I think
-        };
+;
 
         $scope.setCookie=function(){
             $rootScope.globals = $cookieStore.get('globals') || {};
             if ($rootScope.globals.currentUser) {
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
                 $location.path('/home/');
+
+
             }
         }
         $scope.setCookie();
 
 
-
-
-        function initController() {
-
-
-            if($rootScope.globals.hasOwnProperty('currentUser') ){
-                console.log("hasOwnProperty('currentUser')");
-                AuthenticationService.ClearCredentials();
-            }
-            else {
-                console.log("username null "+JSON.stringify($rootScope.globals));
-            }
-
-        }
-
-
     };
 
-    ResetPasswordController.$inject = ['$scope','$state','FlashService','AuthenticationService','UserService', '$uibModal', '$rootScope','$http','$location','$cookieStore'];
-    function ResetPasswordController($scope,$state,FlashService,$AuthenticationService,UserService,$uibModal,$rootScope,$http,$location,$cookieStore, $routeParams) {
+    ResetPasswordController.$inject = ['$scope','$state','FlashService','UserService', '$uibModal', '$rootScope','$location'];
+    function ResetPasswordController($scope,$state,FlashService,UserService,$uibModal,$rootScope,$location) {
         var vm = this;
-
 
         $scope.close=function(){
 
@@ -119,30 +87,6 @@
             $location.path('/');
         };
 
-
-        $scope.$on('modal.closing', function(event, reason, closed) {
-            console.log('modal.closing: ' + (closed ? 'close' : 'dismiss') + '(' + reason + ')');
-            var message = "You are about to leave the edit view. Uncaught reason. Are you sure?";
-            switch (reason){
-                // clicked outside
-                case "backdrop click":
-                    message = "Any changes will be lost, are you sure?";
-                    break;
-
-                // cancel button
-                case "cancel":
-                    message = "Any changes will be lost, are you sure?";
-                    break;
-
-                // escape key
-                case "escape key press":
-                    message = "Any changes will be lost, are you sure?";
-                    break;
-            }
-            if (!confirm(message)) {
-                event.preventDefault();
-            }
-        });
         $scope.openSendResetPasswordModal=function(){
             $scope.modalInstance=$uibModal.open({
                 templateUrl: 'sendresetpasswordModal.tmpl.html',
@@ -157,12 +101,9 @@
         $scope.email = $state.params.email;
 
         $scope.GetByResetPassword = function () {
-
             UserService.GetByResetPassword($scope.token,$scope.email)
                 .then(function (response) {
-                    alert(JSON.stringify(response));
-                    alert(JSON.stringify(response.status));
-                    
+
                     if(response.status == 200){
                         
                         $scope.openSendResetPasswordModal();
@@ -170,36 +111,26 @@
 
                 });
         };
+
         $scope.passwordReseted=false;
         $scope.resetPasswordForm={}
         $scope.resetPasswordSubmit=false;
 
         $scope.resetPassword = function (password,confirmPassword) {
-            // $scope.resetPasswordForm.password = $scope.password;
-            // $scope.resetPasswordForm.confirmPassword = $scope.confirmPassword;
             $scope.resetPasswordSubmit=true;
             $scope.resetPasswordForm.token = $scope.token;
             $scope.resetPasswordForm.password = password;
             $scope.resetPasswordForm.confirmPassword = confirmPassword;
 
-
-           alert('resetPasswordForm1 ');
-
             UserService.ResetPassword($scope.resetPasswordForm)
                 .then(function (response) {
 
-                   /* alert(JSON.stringify(response));
-                    alert(JSON.stringify(response.status));
-*/
                     if(response.status == 200){
-
-                        alert("Success");
                         FlashService.Success(response.data.message, true);
                         $scope.passwordReseted=true;
                     }
                     else{
 
-                        alert("Error");
                         FlashService.Error(response.data.message, true);
                     }
 
@@ -212,15 +143,11 @@
 
     };
 
-    AuthenticationTokenController.$inject = ['$scope','$state','FlashService','$uibModal','UserService', '$rootScope','$http','$location','$cookieStore'];
-    function AuthenticationTokenController($scope,$state,FlashService,$uibModal,UserService, $rootScope,$http,$location,$cookieStore) {
-
-
+    AuthenticationTokenController.$inject = ['$scope','$state','FlashService','$uibModal','UserService', '$rootScope'];
+    function AuthenticationTokenController($scope,$state,FlashService,$uibModal,UserService, $rootScope) {
 
        $scope.authenticationToken =$state.params.authenticationToken;
 
-        alert($scope.authenticationToken);
-        
         $scope.close=function(){
             $scope.modalInstance.dismiss();//$scope.modalInstance.close() also works I think
         };
@@ -330,22 +257,18 @@
     }
 
 
-    LoginController.$inject = ['$scope','$rootScope','$state','UserService','$uibModal','$location', 'AuthenticationService', 'FlashService'];
-    function LoginController($scope,$rootScope,$state,UserService,$uibModal,$location, AuthenticationService, FlashService) {
+    LoginController.$inject = ['$scope','$rootScope','$state','UserService','AuthenticationService', 'FlashService'];
+    function LoginController($scope,$rootScope,$state,UserService,AuthenticationService, FlashService) {
         var vm = this;
         $scope.requestReset=false;
         $scope.booleanTest=true;
-
-
-
         $scope.email;
         $scope.emailJson={
             email:$scope.email
         };
         $scope.password;
         $scope.username;
-        //vm.login = login;
-        console.info("LoginController loaded");
+
         (function initController() {
             // reset login status
             AuthenticationService.ClearCredentials();
@@ -356,15 +279,14 @@
 
             vm.dataLoading = true;
             AuthenticationService.Login($scope.email, $scope.password, function (response,headers) {
-                alert("login callback");
+
                 if (response.success) {
                     AuthenticationService.SetCredentials(response.email, $scope.password);
-                    alert("before $state.go('home,home')")
                     $rootScope.islogged=true;
                     $state.go('home.home');
+
                 } else {
-                    alert(JSON.stringify(response));
-                    alert("error "+ response);
+
                     FlashService.Error(headers('error'));
                     vm.dataLoading = false;
                 }
@@ -372,7 +294,6 @@
         };
 
         $scope.$on('modal.closing', function(event, reason, closed) {
-            alert("closing modal ");
             delete $rootScope.flash;
             if(!$rootScope.islogged){
                 $state.go('index');
@@ -395,12 +316,9 @@
 
         $scope.requestResetPassword = function () {
             $scope.requestingPassword=true;
-            alert($scope.email);
             var requestResetPasswordForm = { email: $scope.email}
             UserService.RequestResetPassword(requestResetPasswordForm)
                 .then(function (response) {
-
-                    alert('RequestResetPassword '+ JSON.stringify(response));
                     if (response.data.success) {
                         $scope.requestingPassword=false;
                         $scope.responseResquestPasswordSuccess=true;
@@ -418,17 +336,15 @@
 
         $scope.resendActivationMailSuccess=false;
         $scope.resendActivationMail=function() {
-            console.info("resendActivationMail $scope.emailJson"+$scope.emailJson.email);
             $scope.dataLoading = true;
             UserService.ResendActivationMail($scope.emailJson)
                 .then(function (response) {
 
-                    alert('resendActivationMail '+ response);
                     if (response.status=200) {
                         $scope.resendActivationMailSuccess=true;
                         FlashService.Success(response.data.message, true);
                         $scope.dataLoading = false;
-                        //$location.path('/');
+
                     } else {
 
                         FlashService.Error(response.data.message);

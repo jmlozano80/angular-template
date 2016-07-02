@@ -3,25 +3,30 @@
 <head>
     <meta charset="utf-8" />
     <title>AngularJS User Registration and Login Example</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link href="app-content/app.css" rel="stylesheet" />
-    <link href="app-content/bootstrap-social.css" rel="stylesheet" />
-    <!--<link href="app-content/app.css" rel="stylesheet" />-->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+    <!--style sheets-->
+    <link rel="stylesheet" href="app-styles/bootstrap.min.css" />
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="app-styles/app.css" rel="stylesheet" />
+    <link href="app-styles/bootstrap-social.css" rel="stylesheet" />
+
+    <!--libraries-->
+    <script src="app-lib/jquery-2.0.3.min.js"></script>
+    <script src="app-lib/bootstrap.min.js"></script>
+    <script src="app-lib/angular.min.js"></script>
+    <script src="app-lib/angular-animate.min.js"></script>
+    <script src="app-lib/angular-route.min.js"></script>
+    <script src="app-lib/angular-cookies.min.js"></script>
+    <script src="app-lib/ui-bootstrap-tpls.min.js"></script>
+    <script src="app-lib/angular-messages.js"></script>
+    <script src="app-lib/angular-ui-router.min.js"></script>
+    <script src="app-lib/ui-bootstrap-tpls-1.3.2.js"></script>
 
 </head>
 <body>
 
-
-    <!--<div class="container-fluid" style="background: red">-->
-
     <div ui-view="main"></div>
 
-    <!--</div>-->
 
 
     <footer class="footer">
@@ -29,48 +34,20 @@
             <p class="text-muted"><a href="https://github.com/jmlozano80">http://github.com/jmlozano80</a></p>
         </div>
     </footer>
-<!--<div class="credits text-center">
-    <p>
-        <a href="http://jasonwatmore.com/post/2015/03/10/AngularJS-User-Registration-and-Login-Example.aspx">AngularJS User Registration and Login Example</a>
-    </p>
-    <p>
-        <a href="http://jasonwatmore.com">JasonWatmore.com</a>
-    </p>
-</div>-->
-
-<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-animate.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-route.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-cookies.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
-<!-- load ngmessages -->
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
-<script src="//rawgit.com/IamAdamJowett/angular-click-outside/master/clickoutside.directive.js"></script>
 
 
-    <!-- UI-Router -->
-    <script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
 
-<!--<script src="//code.angularjs.org/1.2.20/angular.js"></script>-->
-<!--<script src="//code.angularjs.org/1.2.20/angular-route.js"></script>-->
-<!--<script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>-->
-<!--<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-cookies.min.js"></script>-->
+    <script src="app.js"></script>
 
-<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.2.js"></script>
-<script src="app.js"></script>
-<script src="app-services/authentication.service.js"></script>
-<script src="app-services/flash.service.js"></script>
-<!--<script src="app-directives/compare-passwords-directives.js"></script>-->
+    <!--app services-->
+    <script src="app-services/authentication.service.js"></script>
+    <script src="app-services/flash.service.js"></script>
+    <script src="app-services/user.service.js"></script>
 
+    <!--app directives-->
+    <script src="app-directives/clickoutside.directive.js"></script>
 
-<!-- Real user service that uses an api -->
- <script src="app-services/user.service.js"></script>
-
-<!-- Fake user service for demo that uses local storage -->
-<!--<script src="app-services/user.service.local-storage.js"></script>-->
+    <!--app-controllers-->
     <script src="app-views/index/index.controller.js"></script>
     <script src="app-views/home/home.controller.js"></script>
     <script src="app-views/home-container/home.container.controller.js"></script>
@@ -83,8 +60,5 @@
     <script src="app-views/admin/admin2/admin2.controller.js"></script>
     <script src="app-views/admin/admin3/admin3.controller.js"></script>
 
-
-<!--<script src="login/login.controller.js"></script>-->
-<!--<script src="register/register.controller.js"></script>-->
 </body>
 </html>

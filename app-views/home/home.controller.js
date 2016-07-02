@@ -25,20 +25,10 @@
 
         }
 
-        //$rootScope.$on('$stateChangeStart',
-        //    function(event, toState, toParams, fromState, fromParams, options){
-        //        event.preventDefault();
-        //        alert("change state")
-        //    })
-
         $scope.logout=function () {
             AuthenticationService.ClearCredentials();
             $location.path('/');
         }
-
-
-
-
 
         function isUserAdmin() {
 

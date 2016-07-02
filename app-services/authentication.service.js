@@ -40,7 +40,7 @@
             $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(username + ':' + password);
 
             //alert("headers: " + JSON.stringify($http.defaults.headers.common));
-            $http.get('http://localhost:8080/api/user', { username: username, password: password })
+            $http.get('http://localhost:8080/user', { username: username, password: password })
                .success(function (response) {
                    callback(response);
                })
@@ -56,7 +56,7 @@
 
         function SetCredentials(username, password) {
             
-            alert("SetCredentials "+username+" "+password);
+            alert(" Calling SetCredentials "+username+" "+password);
             var authdata = Base64.encode(username + ':' + password);
 
             $rootScope.globals = {
