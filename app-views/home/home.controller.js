@@ -34,7 +34,6 @@
 
             UserService.IsUserAdmin()
                 .then(function (response) {
-                    alert(JSON.stringify(response));
                     if(response.data.isAdmin==true){
                         $rootScope.isAdmin = true;
                     }
@@ -47,7 +46,7 @@
                 then(function(response){
 
                     $rootScope.userName =response.data.userName;
-                    alert($rootScope.userName)
+
                 });
         }
 

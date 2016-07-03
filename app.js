@@ -13,6 +13,7 @@
     function config($stateProvider,$urlRouterProvider,$httpProvider) {
         $httpProvider.defaults.withCredentials = true;
         $httpProvider.defaults.useXDomain = true;
+        /*$httpProvider.defaults.headers.common['Authorization'] = 'Basic auth';*/
 
         // For any unmatched url, redirect to /state1
         $urlRouterProvider.otherwise("/");
@@ -122,14 +123,13 @@
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
-            alert($rootScope.globals.currentUser.authdata)
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
         }
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             // redirect to login page if not logged in and trying to access a restricted page
 
-            var restrictedPage = $.inArray($location.path(), ['/','/test/:authenticated','/login', '/register','/resetpassword/:resetPassword/:email']) === -1;
+            var restrictedPage = $.inArray($location.path(), ['/','/test/:authenticated','/home', '/register','/resetpassword/:resetPassword/:email']) === -1;
 
             // If restrictedPage (String) startsWith('/test/')
             var n = $location.path().startsWith("/test");
@@ -138,8 +138,8 @@
             var loggedIn = $rootScope.globals.currentUser;
             console.log(restrictedPage && !n && !x && !loggedIn);
             if (restrictedPage && !n && !x && !loggedIn) {
-
                 $state.go('index');
+                $location.path('/')
             }
         });
 

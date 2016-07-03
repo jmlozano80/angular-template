@@ -8,8 +8,8 @@
         .module('app')
         .controller('Admin1Controller', Admin1Controller);
 
-    Admin1Controller.$inject = ['$scope','UserService', '$rootScope','AuthenticationService','$location'];
-    function Admin1Controller($scope,UserService, $rootScope,AuthenticationService,$location) {
+    Admin1Controller.$inject = ['$scope','AdminService','UserService', '$rootScope','AuthenticationService','$location'];
+    function Admin1Controller($scope,AdminService,UserService, $rootScope,AuthenticationService,$location) {
         var vm = this;
 
         vm.user = null;
@@ -18,14 +18,18 @@
         initController();
 
         function initController() {
-
+            getAdmin1();
 
         }
 
-        $scope.admin1Test="Admin1";
+        function getAdmin1(){
 
+            AdminService.GetAdmin1().
+                then(function(response){
+                    $scope.admin1Test=response.data.admin1;
+                })
 
-
+        }
 
     }
 

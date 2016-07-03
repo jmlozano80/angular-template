@@ -11,6 +11,7 @@
     AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService'];
     function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService) {
         var service = {};
+        var backendUrl = "http://localhost:8080/";
 
         service.Login = Login;
         service.SetCredentials = SetCredentials;
@@ -19,35 +20,14 @@
         return service;
 
         function Login(username, password, callback) {
-            alert("Auth Service"+ username+password);
-            /* Dummy authentication for testing, uses $timeout to simulate api call
-             ----------------------------------------------*/
-            // $timeout(function () {
-            //     var response;
-            //     UserService.GetByUsername(username)
-            //         .then(function (user) {
-            //             if (user !== null && user.password === password) {
-            //                 response = { success: true };
-            //             } else {
-            //                 response = { success: false, message: 'Username or password is incorrect' };
-            //             }
-            //             callback(response);
-            //         });
-            // }, 1000);
 
-            /* Use this for real authentication
-             ----------------------------------------------*/
             $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(username + ':' + password);
 
-            //alert("headers: " + JSON.stringify($http.defaults.headers.common));
-            $http.get('http://localhost:8080/user', { username: username, password: password })
+            $http.get(backendUrl+'user', { username: username, password: password })
                .success(function (response) {
                    callback(response);
                })
                 .error(function(data, status,headers) {
-                    alert("authservice status "+ status);
-                   // alert("authservice data "+ data.headers('error'));
-                    alert("authservice headers "+ headers('error'));
                     callback(status,headers);
                 });
 
@@ -55,8 +35,7 @@
         }
 
         function SetCredentials(username, password) {
-            
-            alert(" Calling SetCredentials "+username+" "+password);
+
             var authdata = Base64.encode(username + ':' + password);
 
             $rootScope.globals = {

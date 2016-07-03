@@ -224,12 +224,11 @@
         $scope.user={};
         $scope.registrationSuccess=false;
         $scope.register=function() {
-            console.info("Register $scope.user"+JSON.stringify($scope.user));
+
             $scope.dataLoading = true;
             UserService.Create($scope.user)
                 .then(function (response) {
-                    alert("Register then "+ JSON.stringify(response));
-                    alert("Register then "+ JSON.stringify(response.data));
+
                     if (response.data.success) {
                         $scope.registrationSuccess=true;
                         FlashService.Success(response.data.message, true);
@@ -244,14 +243,12 @@
         }
 
         $scope.close=function(){
-            alert("Closing modal from register controller");
             $scope.modalInstance.dismiss();//$scope.modalInstance.close() also works I think
             delete $rootScope.flash;
             $location.path('/');
         };
 
         $scope.$on('modal.closing', function(event, reason, closed) {
-            alert("Closing modal from register controller");
             delete $rootScope.flash;
         })
     }
